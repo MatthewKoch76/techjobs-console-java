@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * Created by LaunchCode
  */
+
 public class JobData {
 
     private static final String DATA_FILE = "resources/job_data.csv";
@@ -83,6 +84,34 @@ public class JobData {
 
         return jobs;
     }
+
+    public static ArrayList<HashMap<String, String>> findByAll(String column, String value) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        String lowerValue = value.toLowerCase();
+
+        for (HashMap<String, String> job : allJobs) {
+
+            String name = job.get("name").toLowerCase();
+            String employer = job.get("employer").toLowerCase();
+            String location = job.get("location").toLowerCase();
+            String positiontype = job.get("position type").toLowerCase();
+            String corecompetency = job.get("core competency").toLowerCase();
+
+
+
+            if (name.contains(lowerValue) || employer.contains(lowerValue) || location.contains(lowerValue) || positiontype.contains(lowerValue) || corecompetency.contains(lowerValue)) {
+
+                jobs.add(job);
+            }
+        }
+        return jobs;
+    }
+
 
     /**
      * Read in data from a CSV file and store it in a list
